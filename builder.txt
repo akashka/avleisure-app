@@ -1,0 +1,10 @@
+zipalign -v -p 4 /home/nabeel/Code/spark/client/platforms/android/build/outputs/apk/android-release-unsigned.apk OLWspark.apk
+
+
+ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore OLWspark.keystore /home/nabeel/Code/spark/client/platforms/android/build/outputs/apk/android-release-unsigned.apk OLWspark
+
+
+ionic cordova build --prod --release android
+
+
+an1973il#

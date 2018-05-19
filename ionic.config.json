@@ -1,0 +1,8 @@
+{
+  "name": "AVLEISURE",
+  "app_id": "3ceba205",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

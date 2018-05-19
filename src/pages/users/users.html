@@ -1,0 +1,252 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      USERS
+    </ion-title>
+    <ion-buttons end *ngIf="list_users">
+      <button ion-button icon-only (click)="create()"><ion-icon name="person-add"></ion-icon></button>
+    </ion-buttons> 
+    <ion-buttons end *ngIf="!list_users">
+      <button ion-button icon-only (click)="list()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons> 
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list *ngIf="list_users">
+    <ion-item-sliding *ngFor="let user of users" class="results_list_mobile indent_results" style="height:100%;">
+
+        <button ion-item>
+          <div class="col_left" style="width:35%;">
+            <div><img src={{user.profileImageURL}} class="bg_student indent_student"/></div>
+          </div>
+          <div class="col_right" style="width:65%;">
+            <h1>{{user.username}}</h1>
+            <h2><ion-icon name="person"></ion-icon> &nbsp; {{user.displayName}}</h2>
+            <h2><ion-icon name="mail"></ion-icon> &nbsp; {{user.email}} </h2>
+            <h2><ion-icon name="call"></ion-icon> &nbsp; {{user.phone_no}} </h2>
+            <h2><ion-icon name="attach"></ion-icon> &nbsp; {{user.roles[0]}} </h2>
+          </div>
+        </button>
+     
+        <ion-item-options side="right">
+          <button ion-button style="background:#ef473a" (click)="delete(user)">
+            <ion-icon name="trash"></ion-icon> &nbsp; Delete
+          </button>
+          <button ion-button style="background-color:#ffc900;" (click)="edit(user)">
+            <ion-icon name="create"></ion-icon> &nbsp; Edit
+          </button>
+          <button ion-button style="background-color: #11c1f3;" (click)="view(user)">
+            <ion-icon name="eye"></ion-icon> &nbsp; View
+          </button>
+        </ion-item-options>
+
+        <ion-item-options side="left">
+          <button ion-button color="info" (click)="callNumber(user.phone_no)">
+            <ion-icon name="call"></ion-icon> &nbsp; Call
+          </button>
+        </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-card class="booking_card" *ngIf="view_users" style="padding:15px;">
+      <h1 style="text-align:center;">{{selected_user.displayName}} </h1>
+      <br>
+      <h2> <b>User Name: </b> {{selected_user.username}} </h2>
+      <br>
+      <h2> <b>Phone No: </b> {{selected_user.phone_no}} </h2>
+      <br>
+      <h2> <b>Alternate No: </b> {{selected_user.alternate_no}} </h2>
+      <br>
+      <h2> <b>Email: </b> {{selected_user.email}} </h2>
+      <br>
+      <h2> <b>First Name: </b> {{selected_user.firstName}} </h2>
+      <br>
+      <h2> <b>Last Name: </b> {{selected_user.lastName}} </h2>
+      <br>
+      <h2> <b>Role: </b> {{selected_user.roles[0]}} </h2>
+      <br>
+      <h2> <b>Type: </b> {{selected_user.user_type}} </h2>
+      <br>
+      <h2> <b>Aadhaar: </b> {{selected_user.aadhaar_no}} </h2>
+      <br>
+      <h2> <b>ESI No: </b> {{selected_user.esi_no}} </h2>
+      <br>
+      <h2> <b>Pan No: </b> {{selected_user.pan_no}} </h2>
+      <br>
+      <h2> <b>PF No: </b> {{selected_user.pf_no}} </h2>
+      <br>
+      <h2> <b>Address: </b> {{selected_user.address}} </h2>
+  </ion-card>
+
+  <ion-list no-lines *ngIf="create_users || edit_users">
+
+    <form [formGroup]="userForm">
+ 
+        <!-- First Name of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="person"></ion-icon> &nbsp; First Name*</ion-label>
+            <ion-input type="text" formControlName="firstName"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.firstName.valid  && (userForm.controls.firstName.dirty || submitAttempt)">
+          Please enter a valid first name
+        </p>
+
+        <!-- Last Name of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="person"></ion-icon> &nbsp; Last Name*</ion-label>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.lastName.valid  && (userForm.controls.lastName.dirty || submitAttempt)">
+          Please enter a valid last name
+        </p>
+
+        <!-- Email ID of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="mail"></ion-icon> &nbsp; E-mail*</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.email.valid  && (userForm.controls.email.dirty || submitAttempt)">
+          Please enter a valid E-mail Id
+        </p>
+
+        <!-- Role of the user -->
+        <ion-list radio-group formControlName="roles">
+          <ion-list-header> <ion-icon name="attach"></ion-icon> &nbsp; Role* </ion-list-header>
+          <ion-item>
+            <ion-label>User</ion-label>
+            <ion-radio value="user"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Admin</ion-label>
+            <ion-radio value="admin"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Marketing</ion-label>
+            <ion-radio value="marketing"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Executive</ion-label>
+            <ion-radio value="executive"></ion-radio>
+          </ion-item>
+        </ion-list>
+
+        <!-- Username of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="bookmark"></ion-icon>  &nbsp; Username*</ion-label>
+            <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.username.valid  && (userForm.controls.username.dirty || submitAttempt)">
+          Please enter a valid Username
+        </p>
+
+        <!-- Aadhaar no of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="information-circle"></ion-icon> &nbsp; Aadhaar No*</ion-label>
+            <ion-input type="text" formControlName="aadhaar_no"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.aadhaar_no.valid  && (userForm.controls.aadhaar_no.dirty || submitAttempt)">
+          Please enter a valid Aadhaar No
+        </p>
+
+        <!-- Pan no of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="information-circle"></ion-icon> &nbsp; PAN No</ion-label>
+            <ion-input type="text" formControlName="pan_no"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.pan_no.valid  && (userForm.controls.pan_no.dirty || submitAttempt)">
+          Please enter a valid PAN No
+        </p>
+
+        <!-- PF no of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="information-circle"></ion-icon> &nbsp; PF No</ion-label>
+            <ion-input type="text" formControlName="pf_no"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.pf_no.valid  && (userForm.controls.pf_no.dirty || submitAttempt)">
+          Please enter a valid PF No
+        </p>
+
+        <!-- ESI no of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="information-circle"></ion-icon> &nbsp; ESI No</ion-label>
+            <ion-input type="text" formControlName="esi_no"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.esi_no.valid  && (userForm.controls.esi_no.dirty || submitAttempt)">
+          Please enter a valid ESI No
+        </p>
+
+        <!-- Phone no of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="call"></ion-icon> &nbsp; Phone No*</ion-label>
+            <ion-input type="text" formControlName="phone_no"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.phone_no.valid  && (userForm.controls.phone_no.dirty || submitAttempt)">
+          Please enter a valid Phone No.
+        </p>
+
+        <!-- Alternate no of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="call"></ion-icon> &nbsp; Alternate No</ion-label>
+            <ion-input type="text" formControlName="alternate_no"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.alternate_no.valid  && (userForm.controls.alternate_no.dirty || submitAttempt)">
+          Please enter a valid Alternate No.
+        </p>
+
+        <!-- Type of the user -->
+        <ion-list radio-group formControlName="user_type">
+          <ion-list-header> <ion-icon name="transgender"></ion-icon> &nbsp; User Type* </ion-list-header>
+          <ion-item>
+            <ion-label>Permanent</ion-label>
+            <ion-radio value="permanent"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Temporary</ion-label>
+            <ion-radio value="temporary"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Outsourced</ion-label>
+            <ion-radio value="outsourced"></ion-radio>
+          </ion-item>
+        </ion-list>
+
+        <!-- Address of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="home"></ion-icon> &nbsp; Address*</ion-label>
+            <ion-textarea type="text" formControlName="address"></ion-textarea>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.address.valid  && (userForm.controls.address.dirty || submitAttempt)">
+          Please enter a valid Address
+        </p>
+
+        <!-- Password of the user -->
+        <ion-item>
+            <ion-label floating><ion-icon name="lock"></ion-icon> &nbsp; Password*</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <p class="errorMessage" *ngIf="!userForm.controls.password.valid  && (userForm.controls.password.dirty || submitAttempt)">
+          Please enter a valid Password
+        </p>
+
+        <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
+ 
+        <div class="gm_drawer_footer_wrapper">
+          <button (click)="save()" ion-button class="btn-success" style="width:100%">SAVE</button>
+        </div>
+
+        <br><br><br>
+
+    </form>
+ 
+  </ion-list>
+
+
+</ion-content>

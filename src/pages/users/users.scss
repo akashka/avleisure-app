@@ -1,0 +1,52 @@
+page-users {
+    .item-md {
+        padding-left: 0 !important;
+    }
+
+    img {
+        max-width: 90%;
+    }
+
+}
+
+.col_left {
+    float: left;
+    width: 40%;
+    padding-top: 5px;
+}
+
+.col_right{
+    float: right;
+    width: 58%;
+    position: relative;
+}
+        
+ion-item-options .button {
+    padding: 0 1.5em;
+}
+
+.ios ion-input, .ios ion-select, .ios ion-textarea, .md ion-input, .md ion-select, .md ion-textarea {
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.list-header-md {
+    margin-bottom: 0;
+}
+
+.ios ion-list, .md ion-list {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    margin-bottom: 0;    
+}
+
+.ios .errorMessage, .md .errorMessage {
+    background: white;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.list-md[no-lines] .item-block, .list-md[no-lines] ion-item-options, .list-md[no-lines] .item .item-inner {
+    padding-left: 10px !important;
+    padding-right: 10px!important;
+}

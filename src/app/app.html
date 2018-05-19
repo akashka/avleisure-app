@@ -1,0 +1,53 @@
+<ion-menu side="left" [content]="content">
+    <ion-header style="height:150px;color:black;">
+        <ion-toolbar style="height: 100%;">
+            <div style="width:45%; float:left;">
+                 <img *ngIf="user != undefined" [src]="user.img" class="header-profile-image"> 
+            </div>
+            <div style="width: 55%;float: left;font-size: 19px;margin-top: -15px;color: white;">
+                <span *ngIf="user != undefined"> {{user.displayName}} </span> 
+                <div>
+                    <ion-item (click)="go_to_edit_profile()" menuClose>
+                        <ion-icon name="brush"></ion-icon> &nbsp;
+                    </ion-item>
+                    <ion-item (click)="go_to_change_password()" menuClose>
+                        <ion-icon name="unlock"></ion-icon> &nbsp;
+                    </ion-item>
+                    <ion-item (click)="go_to_login()" menuClose>
+                        <ion-icon name="log-out"></ion-icon> &nbsp;
+                    </ion-item>
+                </div>
+            </div>
+        </ion-toolbar>
+    </ion-header>        
+    <ion-content>
+        <ion-list>
+            <ion-item (click)="go_to_home()" menuClose>
+                <ion-icon name="home"></ion-icon> &nbsp; Home
+            </ion-item>
+            <ion-item (click)="go_to_users()" menuClose *ngIf="isAdmin">
+                <ion-icon name="people"></ion-icon> &nbsp; Users
+            </ion-item>
+            <ion-item (click)="go_to_itineries()" menuClose>
+                <ion-icon name="map"></ion-icon> &nbsp; Itineries
+            </ion-item>
+            <ion-item (click)="go_to_enquiries()" menuClose *ngIf="isAdmin || isMarketing">
+                <ion-icon name="basket"></ion-icon> &nbsp; Enquiries
+            </ion-item>
+            <ion-item (click)="go_to_bookings()" menuClose *ngIf="isAdmin || isMarketing">
+                <ion-icon name="bookmarks"></ion-icon> &nbsp; Bookings
+            </ion-item>
+            <ion-item (click)="go_to_trips()" menuClose *ngIf="isAdmin || isExecutive">
+                <ion-icon name="subway"></ion-icon> &nbsp; Trips
+            </ion-item>
+            <ion-item (click)="go_to_accounts()" menuClose *ngIf="isAdmin">
+                <ion-icon name="cash"></ion-icon> &nbsp; Accounts
+            </ion-item>
+            <ion-item (click)="go_to_reports()" menuClose *ngIf="isAdmin">
+                <ion-icon name="stats"></ion-icon> &nbsp; Reports
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" id="nav" #content swipeBackEnabled="false"></ion-nav>

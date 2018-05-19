@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>BOOKINGS</ion-title>
+    <ion-buttons end *ngIf="list_bookings">
+      <button ion-button icon-only (click)="create()"><ion-icon name="add-circle"></ion-icon></button>
+    </ion-buttons> 
+    <ion-buttons end *ngIf="!list_bookings">
+      <button ion-button icon-only (click)="list()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>  
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list *ngIf="list_bookings">
+    <ion-item-sliding *ngFor="let booking of bookings" class="results_list_mobile indent_results" style="height:100%;">
+
+        <button ion-item>
+          <div class="col_full">
+            <h2><ion-icon name="calendar"></ion-icon> <b>Booking Date:</b> &nbsp; {{booking.created | date:'dd/MMM/yyyy'}}</h2>
+            <h2><ion-icon name="calendar"></ion-icon> <b>Execution Date:</b> &nbsp; {{booking.booking_date | date:'dd/MMM/yyyy'}}</h2>
+            <h2><ion-icon name="information-circle"></ion-icon> <b>Booking ID:</b> &nbsp; {{booking.booking_id}}</h2>
+            <h2><ion-icon name="people"></ion-icon> <b>Booked By:</b> &nbsp; {{booking.user.displayName}}</h2>
+            <h2><ion-icon name="school"></ion-icon> <b>School Name:</b> &nbsp; {{booking.school_name}}</h2>
+            <h2><ion-icon name="analytics"></ion-icon> <b>Smart Remark:</b> &nbsp; {{calculateSmartRemark(booking)}}</h2>
+          </div>
+        </button>
+     
+        <ion-item-options side="right">
+          <button ion-button style="background-color:#ffc900;" (click)="edit(booking)">
+            <ion-icon name="create"></ion-icon> &nbsp; Edit
+          </button>
+          <button ion-button style="background-color: #11c1f3;" (click)="view(booking)">
+            <ion-icon name="eye"></ion-icon> &nbsp; View
+          </button>
+        </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <div *ngIf="view_bookings">
+
+    <br>
+    <h1 style="text-align:center;">Booking Details</h1>
+    <ion-card class="booking_card"  style="padding:15px;">
+          <h2><b>Execution Date:</b> &nbsp; {{selected_booking.booking_date | date:'dd/MMM/yyyy'}} </h2>
+          <br>
+          <h2><b>School Name:</b> &nbsp; {{selected_booking.school_name}} </h2>
+          <br>
+          <h2><b>Contact Name:</b> &nbsp; {{selected_booking.contact_person}}</h2>
+          <br>
+          <h2><b>Contact Email:</b> &nbsp; {{selected_booking.contact_email}}</h2>
+          <br>
+          <h2><b>Contact Phone:</b> &nbsp; {{selected_booking.contact_phone}}</h2>
+          <br>
+          <h2><b>No. Of Students:</b> &nbsp; {{selected_booking.no_of_students}}</h2>
+          <br>
+          <h2><b>No. Of Staff:</b> &nbsp; {{selected_booking.no_of_staff}}</h2>
+          <br>
+          <h2><b>Class:</b> &nbsp; {{selected_booking.class}}</h2>
+          <br>
+          <h2><b>Destination:</b> &nbsp; {{selected_booking.destination}}</h2>
+          <br>
+          <h2><b>Tour Managers:</b> &nbsp; 
+              {{selected_booking.tour_managers}}
+          </h2>
+    </ion-card>
+
+    <br>
+    <h1 style="text-align:center;">Amount Details</h1>
+    <ion-card class="booking_card"  style="padding:15px;">
+          <h2><b>Booking Amount:</b> &nbsp; Rs.  {{selected_booking.booking_amount}}</h2>
+          <br>
+          <h2><b>Bill Amount:</b> &nbsp; Rs.  {{selected_booking.billing.bill_amount}}</h2>
+          <br>
+          <h2><b>GST Percentage:</b> &nbsp; {{selected_booking.billing.gst_percentage}}  %</h2>
+    </ion-card>
+
+    <br>
+    <h1 style="text-align:center;">Payments Details</h1>
+     <!-- <ion-card class="booking_card" style="padding:15px;" *ngFor="let exp in selected_booking.amount_paid">
+        <h2> <b> Amount </b> &nbsp; Rs. {{exp.amount_paid}} </h2>
+        <h2> <b> Payment Date </b> &nbsp; {{exp.payment_date | date:'dd/MMM/yyyy'}} </h2>
+        <h2> <b> Payment Mode </b> &nbsp; {{exp.payment_mode[0]}} </h2>
+        <h2> <b> Payment Info </b> &nbsp; {{exp.cheque_number}} {{exp.transaction_number}} </h2>
+     </ion-card>   -->
+
+    <br>
+    <h1 style="text-align:center;">Pre Trip Expense Details</h1>
+
+
+    <br>
+    <h1 style="text-align:center;">On Trip Expense Details</h1>
+
+
+  </div>
+
+  <!-- <div class="col-md-12" style="border: 1px solid grey;">
+    <div class="row" style="border: 1px solid grey;">
+            <div class="col-md-1"> Category </div>
+            <div class="col-md-1"> Vendor </div>
+            <div class="col-md-2"> Address </div>
+            <div class="col-md-1"> Phone </div>
+            <div class="col-md-1"> Booked on </div>
+            <div class="col-md-1"> Booking for </div>
+            <div class="col-md-1"> Total Amount </div>
+            <div class="col-md-1"> Advance Amount </div>
+            <div class="col-md-1"> Balance Amount </div>
+            <div class="col-md-2"> Remarks </div>
+    </div>
+    <div class="row" ng-if="vm.booking.expenses.length <= 0" 
+        style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;"> No Expenses found
+    </div>
+    <div class="row" ng-repeat="exp in vm.booking.expenses" style="border: 1px solid grey;">
+            <div class="col-md-1"> {{exp.category[0]}} </div>
+            <div class="col-md-1"> {{exp.vendor_name}} </div>
+            <div class="col-md-2"> {{exp.vendor_address}} </div>
+            <div class="col-md-1"> {{exp.vendor_phone}} </div>
+            <div class="col-md-1"> {{exp.booking_on | date:'dd/MMM/yyyy'}} </div>
+            <div class="col-md-1"> {{exp.booking_date | date:'dd/MMM/yyyy'}} </div>
+            <div class="col-md-1"> Rs.{{exp.total_amount}} </div>
+            <div class="col-md-1"> Rs.{{exp.advance_amount}} </div>
+            <div class="col-md-1"> Rs.{{exp.total_amount - exp.advance_amount}} </div>
+            <div class="col-md-2"> {{exp.remarks}} </div>
+    </div>
+  </div>
+
+  <div class="col-md-12" style="border: 1px solid grey;">
+    <div class="row" style="border: 1px solid grey;">
+            <div class="col-md-2"> Transaction Date </div>
+            <div class="col-md-6"> Details </div>
+            <div class="col-md-2"> Credit </div>
+            <div class="col-md-2"> Debit </div>
+    </div>
+    <div class="row" ng-if="vm.trip.transactions.length <= 0" 
+        style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;"> No Payments found
+    </div>
+    <div class="row" ng-repeat="exp in vm.trip.transactions" style="border: 1px solid grey;">
+            <div class="col-md-2"> {{exp.transaction_date | date:'dd/MMM/yyyy'}} </div>
+            <div class="col-md-6"> 
+                {{exp.category}},   {{exp.sub_category}}
+                <span ng-if="exp.remarks != ''"><br> ({{exp.remarks}})</span>  
+            </div>
+            <div class="col-md-2">
+                <span ng-if="exp.credit"> Rs. {{exp.amount}}</span> 
+                <span ng-if="!exp.credit"></span>
+            </div>
+            <div class="col-md-2">
+                <span ng-if="!exp.credit">Rs. {{exp.amount}}</span> 
+                <span ng-if="exp.credit"></span> 
+            </div>
+    </div>
+  </div> -->
+
+
+</ion-content>

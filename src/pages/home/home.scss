@@ -1,0 +1,126 @@
+.ios, .md {
+ 
+        background-image: url('../assets/images/15549a14589707.5628669c64769.png');
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+
+        ion-content {
+            background-color: map-get($colors, secondary);
+        }
+
+        p {
+            font-size: 0.8em;
+            color: #d2d2d2;
+        }
+ 
+        .swiper-slide {
+            display: block;
+        }
+ 
+        ion-label, .select-text {
+            margin-left: 10px;
+        }
+ 
+        ion-input, ion-select, ion-textarea {
+            background-color: #f2f2f2;
+            padding: 5px 10px;
+        }
+ 
+        .invalid {
+            border: 1px solid #ea6153;
+        }
+
+        .btn-danger {
+            color: white;
+            padding: 14px 20px;
+            background-color: #f44336;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            float:left;
+            width:50%;
+            height: 80%;
+        }
+
+        .btn-success {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            float:left;
+            width:50%;
+            height: 80%        }
+
+        ion-input {
+            background-color: transparent;
+            border-bottom: 1px solid rgba(0,0,0,.12);
+        }
+ 
+        .gm_drawer_footer_wrapper {
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            background: #fff;
+            bottom: 0;
+            z-index: 1;
+            box-shadow: 0 0 16px 0 rgba(0,0,0,.3);
+        }
+
+        .scroll-content {
+            padding: 0 !important;
+        }
+
+        .upload_button {
+            z-index: 1 !important;
+            margin-bottom: 50px !important;
+        }
+
+        .upload_button .toolbar-content .bar-buttons button {
+            width: 100%;
+        }
+
+        .errorMessage {
+            color: red;
+        }
+
+        .numbering {
+            color: blue;
+        }
+
+        .alert-md .alert-button {
+            float: left;
+            width: 46%;
+        }
+
+}
+
+.ios ion-list, .md ion-list {
+    padding-bottom: 0px !important;
+}
+
+.ios .login-page #cloud-layer, .md .login-page #cloud-layer {
+    background-image: url(../assets/images/sky_background.jpg);
+    background-size: inherit;
+    width: 100%;
+    height: 100%;
+    background-position-y: center;
+    background-position-x: right;
+}
+
+.ios .login-page .login-button, .md .login-page .login-button {
+    width: 100%;
+    border-radius: 30px;
+    font-size: 1.4em;
+    border: 1px solid #fff;
+    background-color: #2ec95c;
+}
+
+.item-md h2 {
+    margin: 2px 0;
+    font-size: 1.6rem;
+    font-weight: normal;
+    white-space: normal;
+}

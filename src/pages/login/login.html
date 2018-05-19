@@ -1,0 +1,87 @@
+<ion-content class="login-page">
+    <div padding id="cloud-layer">
+
+      <ion-row style="margin-top:15vh;">
+        <ion-col>
+          <img [@flyInBottomSlow]="logoState" src="assets/images/logo_littleW_0.png" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!isForgotPassword">
+          <ion-col>
+              <ion-list inset [@bounceInBottom]="formState">
+
+                <form [formGroup]="loginForm">
+   
+                    <ion-item>
+                      <ion-label><ion-icon name="person"></ion-icon></ion-label>
+                      <ion-input formControlName="email" placeholder="email" type="text"></ion-input>
+                    </ion-item>
+
+                    <p *ngIf="!loginForm.controls.email.valid  && (loginForm.controls.email.dirty || submitAttempt)" class="errorMessage">
+                      Enter valid email id
+                    </p>
+       
+                    <ion-item>
+                      <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+                      <ion-input required formControlName="password" placeholder="password" type="password"></ion-input>
+                    </ion-item>
+
+                    <p *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)" class="errorMessage">
+                      Enter valid password
+                    </p>
+
+                  </form>
+              </ion-list>
+          </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!isForgotPassword">
+          <ion-col>
+              <button ion-button full (click)="login()" [@fadeIn]="loginState" class="login-button">Login</button>
+          </ion-col>
+      </ion-row>
+
+      <ion-col *ngIf="!isForgotPassword">
+          <a class="forgot-password" (click)="forgotPassword()" [@fadeIn]="loginState"> FORGOT PASSWORD? </a>
+      </ion-col> 
+
+      <ion-row *ngIf="isForgotPassword">
+          <ion-col>
+              <ion-list inset [@bounceInBottom]="formState">
+
+                <form [formGroup]="forgotPasswordForm">
+   
+                    <ion-item>
+                      <ion-label><ion-icon name="person"></ion-icon></ion-label>
+                      <ion-input formControlName="email" placeholder="email" type="text"></ion-input>
+                    </ion-item>
+
+                    <p *ngIf="!forgotPasswordForm.controls.email.valid  && (forgotPasswordForm.controls.email.dirty || submitAttempt)" class="errorMessage">
+                      Enter valid email id
+                    </p>
+
+                </form>
+              </ion-list>
+          </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="isForgotPassword">
+          <ion-col>
+              <button ion-button full (click)="submitForgotPassword()" [@fadeIn]="loginState" class="login-button">Submit</button>
+          </ion-col>
+      </ion-row>
+
+      <ion-col *ngIf="isForgotPassword">
+          <a class="forgot-password" (click)="forgotPassword()" [@fadeIn]="loginState"> Login? </a>
+      </ion-col>
+
+      <ion-row>
+        <ion-col>
+            <p class="errorMessage">{{errorMessage}}</p>
+        </ion-col>
+      </ion-row>
+
+    </div>
+ 
+</ion-content>
