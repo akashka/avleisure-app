@@ -74,35 +74,35 @@ export class MyApp {
   }
 
   go_to_users()  {
-    this.nav.setRoot(UsersPage);    
+    this.nav.push(UsersPage);    
   }
 
   go_to_itineries()  {
-    this.nav.setRoot(ItineriesPage);    
+    this.nav.push(ItineriesPage);    
   }
 
   go_to_enquiries()  {
-    this.nav.setRoot(EnquiriesPage);    
+    this.nav.push(EnquiriesPage);    
   }
 
   go_to_quotations()  {
-    this.nav.setRoot(QuotationsPage);    
+    this.nav.push(QuotationsPage);    
   }
 
   go_to_bookings()  {
-    this.nav.setRoot(BookingsPage);    
+    this.nav.push(BookingsPage);    
   }
 
   go_to_trips()  {
-    this.nav.setRoot(TripsPage);    
+    this.nav.push(TripsPage);    
   }
 
   go_to_accounts()  {
-    this.nav.setRoot(AccountsPage);    
+    this.nav.push(AccountsPage);    
   }
 
   go_to_reports()  {
-    this.nav.setRoot(ReportsPage);    
+    this.nav.push(ReportsPage);    
   }
 
   go_to_change_password() {
